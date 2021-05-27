@@ -1,6 +1,7 @@
 public class EVL<T> {
     Listenelement first = null; // Zeiger erstes Element
     Listenelement last = null; // Zeiger zweites element
+    int size;
 
     class Listenelement {  // Listenelement als innere Klasse
         T data;
@@ -14,7 +15,7 @@ public class EVL<T> {
             return data;
         }
         public String toString() {
-            return "Element: " + this.data;
+            return "Element: " + getData();
         }
     }
 
@@ -23,6 +24,7 @@ public class EVL<T> {
     }
 
     public void addFirst(T e) { // add element to first position of list
+
         Listenelement element = new Listenelement(e); // create new listelement
 
         if (isEmpty()) { // if first is empty add element to last
@@ -31,6 +33,7 @@ public class EVL<T> {
             element.next = this.first;
         }
         this.first = element; // if first is empty ad element to first
+        size++;
 
     }
 
@@ -38,7 +41,7 @@ public class EVL<T> {
         if (isEmpty()) { // cant remove anything from an already empty list --> exception
             throw new java.util.NoSuchElementException();
         }
-        T d = last.data; // data of last is being save in "d"
+        T d = last.data; // data of last is saved in "d"
         if (first == last) { // if only one element in list then set both to null and return
             last = null;
             first = null;
@@ -55,18 +58,22 @@ public class EVL<T> {
                 last = temp; //
             }
         }
+        size--;
         return d;
     }
 
     public void addLast(T e) {
+
         Listenelement element = new Listenelement(e);
 
         if (isEmpty()) {
-            this.last = element;
+            this.first = element;
         } else {
-            element.next = this.last;
+            last.next = element;
         }
         this.last = element;
+        size++;
+
     }
 
     public T removeFirst() {
@@ -79,38 +86,83 @@ public class EVL<T> {
             first = null;
         } else {
             if (first.next == last) { // if there are only 2 elements in the list, do following
-                first = null;
-                first = last;
+                first.next = null;
+                last = first;
             } else {
                 Listenelement temp = first;
-                temp = null;
+                first = null;
                 first = temp.next;
+
+
             }
 
         }
+        size--;
         return d;
+    }
+
+    public void add(int pos, T e) throws Exception {
+        if (pos > size) {
+            throw new Exception("Input position bigger than size! Please insert value<size");
+        } else if (pos == size) {
+            addLast(e);
+        } else if (pos == 0) {
+            addFirst(e);
+        } else {
+            Listenelement temp = first;
+            for (int i=0; i<pos-1;i++) {
+                temp = temp.next;
+            }
+            Listenelement temp2 = temp.next;
+
+            Listenelement element = new Listenelement(e);
+
+            temp.next = element;
+            temp.next.next = temp2;
+            size++;
+
+        }
 
     }
-    public String toString() {
-        return "Liste: ";
+
+    public boolean contains(T e) {
+        boolean x = false;
+        for (int i=0; i<size; i++) {// while loop to run through until last element
+            if (first == e) {
+                x = true;
+            }
+            else
+            first = first.next;
+        }
+        return x;
     }
+/*
+    public T remove(int pos) throws Exception {
+        if (pos > size) {
+            throw new Exception("Input position bigger than size! Please insert value<size");
+        }
+        for (int i=0; i<=pos; i++) {
+            first = first.next;
+        }
+        T d = first.data;
+
+        if (pos == size) {
+            removeLast();
+        }
+        if (pos == 0) {
+            removeFirst();
+        } else {
+            Listenelement temp = first;
+            for (int i=0; i<pos; i++) {
+                temp = temp.next;
+            }
+            temp.next = temp.next.next;
+            temp.next.next = null;
+        }
+        size--;
+        return d;
+    }
+    */
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
