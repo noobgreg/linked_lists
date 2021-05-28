@@ -92,8 +92,6 @@ public class EVL<T> {
                 Listenelement temp = first;
                 first = null;
                 first = temp.next;
-
-
             }
 
         }
@@ -126,43 +124,47 @@ public class EVL<T> {
     }
 
     public boolean contains(T e) {
+
         boolean x = false;
-        for (int i=0; i<size; i++) {// while loop to run through until last element
-            if (first == e) {
+        Listenelement temp = first;
+
+        for (int i=0; i<size; i++) {
+            if(temp.data == e){
                 x = true;
+            } else {
+                temp = temp.next;
             }
-            else
-            first = first.next;
         }
         return x;
     }
-/*
+
     public T remove(int pos) throws Exception {
+        T d = first.data;
         if (pos > size) {
             throw new Exception("Input position bigger than size! Please insert value<size");
         }
-        for (int i=0; i<=pos; i++) {
-            first = first.next;
+        else if (pos == size-1) {
+            d = removeLast();
         }
-        T d = first.data;
-
-        if (pos == size) {
-            removeLast();
-        }
-        if (pos == 0) {
-            removeFirst();
+        else if (pos == 0) {
+            d = removeFirst();
         } else {
-            Listenelement temp = first;
+            Listenelement temp = first, prev = null;
             for (int i=0; i<pos; i++) {
+                prev = temp;
                 temp = temp.next;
             }
-            temp.next = temp.next.next;
-            temp.next.next = null;
+            prev.next = temp.next;
+
+            d = temp.data;
         }
         size--;
         return d;
     }
-    */
+
+    public int size() {
+        return size;
+    }
 
 }
 
