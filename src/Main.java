@@ -14,12 +14,15 @@ public class Main {
 
         evl.addLast(9);
         evl.addLast(8);
-        //evl.add(5, 10);
+        evl.add(5, 10);
+        evl.addFirst(420);
+
 
         //evl.remove(4);
-        System.out.println(evl.remove(4));
+        System.out.println(evl.remove(1));
         //System.out.println(evl.removeLast());
-        //System.out.println(evl.contains(55));
+        //System.out.println(evl.removeFirst());
+        //System.out.println(evl.contains(420));
         //evl.remove(0);
 
         System.out.println(evl.first);
@@ -27,7 +30,9 @@ public class Main {
         //System.out.println("Size is " + evl.size());
         System.out.println(evl.first.next.next);
         System.out.println(evl.first.next.next.next);
-        //System.out.println(evl.first.next.next.next.next);
+        System.out.println(evl.first.next.next.next.next);
+        System.out.println(evl.first.next.next.next.next.next);
+        System.out.println(evl.first.next.next.next.next.next.next);
         System.out.println(evl.last);
         //System.out.println(evl.first.data == evl.last.data);
 
